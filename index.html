@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/gym_tracking/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GymTrack</title>
+    <script type="module" crossorigin src="/gym_tracking/assets/index-DRZXM5HS.js"></script>
+    <link rel="stylesheet" crossorigin href="/gym_tracking/assets/index-C6Z_FD57.css">
+  </head>
+  <body>
+    <script>
+      (function () {
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect !== location.href) {
+          history.replaceState(null, null, redirect.replace(location.origin, ""));
+        }
+      })();
+    </script>
+    <div id="root"></div>
+  </body>
+</html>
