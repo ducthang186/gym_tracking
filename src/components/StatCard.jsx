@@ -7,15 +7,15 @@ export default function StatCard({ label, value, unit, icon: Icon, accent = "bra
   };
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 p-5 flex items-center gap-4">
-      <div className={`w-11 h-11 rounded-lg flex items-center justify-center ${accentClasses[accent]}`}>
-        <Icon size={20} />
+    <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-5 flex items-center gap-3 sm:gap-4">
+      <div className={`w-9 h-9 sm:w-11 sm:h-11 rounded-lg flex items-center justify-center shrink-0 ${accentClasses[accent]}`}>
+        <Icon size={18} />
       </div>
-      <div>
-        <p className="text-sm text-slate-500">{label}</p>
-        <p className="text-xl font-bold text-slate-900">
+      <div className="min-w-0">
+        <p className="text-xs sm:text-sm text-slate-500 leading-tight">{label}</p>
+        <p className="text-lg sm:text-xl font-bold text-slate-900">
           {value}
-          {unit && <span className="text-sm font-normal text-slate-400 ml-1">{unit}</span>}
+          {unit && <span className="text-xs sm:text-sm font-normal text-slate-400 ml-1">{unit}</span>}
         </p>
       </div>
     </div>

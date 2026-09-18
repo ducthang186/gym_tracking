@@ -25,21 +25,21 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Chào, {profile.name} 👋</h1>
-        <p className="text-slate-500 mt-1">Đây là tổng quan hành trình tập luyện của bạn hôm nay.</p>
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Chào, {profile.name} 👋</h1>
+        <p className="text-sm sm:text-base text-slate-500 mt-1">Đây là tổng quan hành trình tập luyện của bạn hôm nay.</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         <StatCard label="Calo còn lại hôm nay" value={remaining} unit="kcal" icon={Flame} accent="orange" />
         <StatCard label="Cân nặng hiện tại" value={profile.currentWeight} unit="kg" icon={Scale} accent="blue" />
         <StatCard label="Đã giảm" value={loss} unit="kg" icon={TrendingDown} accent="brand" />
         <StatCard label="Mục tiêu" value={profile.targetWeight} unit="kg" icon={Target} accent="purple" />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200 p-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200 p-4 sm:p-6">
           <h2 className="font-semibold text-slate-900 mb-4">Biểu đồ cân nặng theo tuần</h2>
-          <ResponsiveContainer width="100%" height={260}>
+          <ResponsiveContainer width="100%" height={230}>
             <RLineChart data={weightHistory}>
               <CartesianGrid strokeDasharray="3 3" stroke="#eef2f7" />
               <XAxis dataKey="week" tick={{ fontSize: 12, fill: "#64748b" }} />
@@ -50,7 +50,7 @@ export default function Dashboard() {
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-4">
+        <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-6 space-y-4">
           <h2 className="font-semibold text-slate-900">Macro hôm nay</h2>
           <MacroBar label="Protein" current={calorieToday.protein.current} goal={calorieToday.protein.goal} color="bg-brand-500" />
           <MacroBar label="Carbs" current={calorieToday.carbs.current} goal={calorieToday.carbs.goal} color="bg-blue-500" />
@@ -58,22 +58,22 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl border border-slate-200 p-6">
+      <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-6">
         <h2 className="font-semibold text-slate-900 mb-4">Lịch ăn hôm nay</h2>
         <div className="divide-y divide-slate-100">
           {mealPlanToday.map((meal) => {
             const total = meal.items.reduce((sum, i) => sum + i.calories, 0);
             const foodSummary = meal.items.map((i) => `${i.food} (${i.grams}g)`).join(", ");
             return (
-              <div key={meal.time} className="flex items-center justify-between py-3">
-                <div className="flex items-center gap-4">
-                  <span className="text-sm font-mono text-slate-400 w-14">{meal.time}</span>
-                  <div>
-                    <p className="font-medium text-slate-800">{meal.name}</p>
-                    <p className="text-sm text-slate-500">{foodSummary}</p>
+              <div key={meal.time} className="flex items-start justify-between gap-3 py-3">
+                <div className="flex items-start gap-3 sm:gap-4 min-w-0">
+                  <span className="text-xs sm:text-sm font-mono text-slate-400 w-11 sm:w-14 shrink-0 pt-0.5">{meal.time}</span>
+                  <div className="min-w-0">
+                    <p className="font-medium text-slate-800 text-sm sm:text-base">{meal.name}</p>
+                    <p className="text-xs sm:text-sm text-slate-500">{foodSummary}</p>
                   </div>
                 </div>
-                <span className="text-sm font-semibold text-brand-700 bg-brand-50 px-2.5 py-1 rounded-full">
+                <span className="text-xs sm:text-sm font-semibold text-brand-700 bg-brand-50 px-2 sm:px-2.5 py-1 rounded-full shrink-0 whitespace-nowrap">
                   {total} kcal
                 </span>
               </div>

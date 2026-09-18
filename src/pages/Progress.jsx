@@ -9,28 +9,29 @@ export default function Progress() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Tiến độ</h1>
-        <p className="text-slate-500 mt-1">Theo dõi cân nặng và ảnh trước/sau tập.</p>
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Tiến độ</h1>
+        <p className="text-sm sm:text-base text-slate-500 mt-1">Theo dõi cân nặng và ảnh trước/sau tập.</p>
       </div>
 
-      <div className="bg-white rounded-xl border border-slate-200 p-6">
-        <div className="flex items-center justify-between mb-4">
+      <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
           <h2 className="font-semibold text-slate-900">Cân nặng theo tuần</h2>
           <div className="flex gap-2">
             <input
               type="number"
+              inputMode="decimal"
               placeholder="Nhập cân nặng (kg)"
               value={newWeight}
               onChange={(e) => setNewWeight(e.target.value)}
-              className="w-40 rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="flex-1 sm:w-40 sm:flex-none rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
-            <button className="flex items-center gap-1.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-3 py-2 rounded-lg transition-colors">
+            <button className="flex items-center gap-1.5 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-3 py-2 rounded-lg transition-colors shrink-0">
               <Plus size={16} />
               Ghi nhận
             </button>
           </div>
         </div>
-        <ResponsiveContainer width="100%" height={260}>
+        <ResponsiveContainer width="100%" height={230}>
           <RLineChart data={weightHistory}>
             <CartesianGrid strokeDasharray="3 3" stroke="#eef2f7" />
             <XAxis dataKey="week" tick={{ fontSize: 12, fill: "#64748b" }} />
@@ -41,7 +42,7 @@ export default function Progress() {
         </ResponsiveContainer>
       </div>
 
-      <div className="bg-white rounded-xl border border-slate-200 p-6">
+      <div className="bg-white rounded-xl border border-slate-200 p-4 sm:p-6">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-semibold text-slate-900">Ảnh trước / sau tập</h2>
           <button className="flex items-center gap-1.5 text-sm font-medium text-brand-700 hover:text-brand-800">
@@ -49,7 +50,7 @@ export default function Progress() {
             Thêm ảnh
           </button>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
           {progressPhotos.map((p) => (
             <div key={p.date} className="space-y-2">
               <div className="aspect-3/4 rounded-lg bg-slate-100 border border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-xs">

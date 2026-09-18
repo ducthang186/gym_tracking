@@ -17,17 +17,17 @@ function MealCard({ meal }) {
     <div className="border border-slate-200 rounded-lg overflow-hidden">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between px-4 py-3.5 bg-slate-50 hover:bg-slate-100 transition-colors"
+        className="w-full flex items-center justify-between gap-2 px-3 sm:px-4 py-3.5 bg-slate-50 hover:bg-slate-100 transition-colors"
       >
-        <div className="flex items-center gap-4">
-          <span className="text-sm font-mono text-slate-400 w-14 text-left">{meal.time}</span>
-          <div className="text-left">
-            <p className="font-medium text-slate-800">{meal.name}</p>
+        <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+          <span className="text-xs sm:text-sm font-mono text-slate-400 w-11 sm:w-14 text-left shrink-0">{meal.time}</span>
+          <div className="text-left min-w-0">
+            <p className="font-medium text-slate-800 text-sm sm:text-base">{meal.name}</p>
             <p className="text-xs text-slate-500">{meal.items.length} món · {totalGrams} g</p>
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          <span className="text-sm font-semibold text-brand-700 bg-brand-50 px-2.5 py-1 rounded-full">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <span className="text-xs sm:text-sm font-semibold text-brand-700 bg-brand-50 px-2 sm:px-2.5 py-1 rounded-full whitespace-nowrap">
             {total} kcal
           </span>
           <ChevronDown size={16} className={`text-slate-400 transition-transform ${open ? "rotate-180" : ""}`} />
@@ -37,13 +37,13 @@ function MealCard({ meal }) {
       {open && (
         <div className="divide-y divide-slate-100">
           {meal.items.map((item) => (
-            <div key={item.food} className="flex items-center justify-between px-4 py-3 pl-[4.7rem]">
-              <span className="text-sm text-slate-700">{item.food}</span>
-              <div className="flex items-center gap-3">
-                <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full">
+            <div key={item.food} className="flex items-center justify-between gap-2 px-3 sm:px-4 py-2.5 sm:py-3 pl-[3.5rem] sm:pl-[4.7rem]">
+              <span className="text-sm text-slate-700 min-w-0 truncate">{item.food}</span>
+              <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                <span className="text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded-full whitespace-nowrap">
                   {item.grams} g
                 </span>
-                <span className="text-xs text-slate-400 w-16 text-right">{item.calories} kcal</span>
+                <span className="text-xs text-slate-400 w-14 sm:w-16 text-right whitespace-nowrap">{item.calories} kcal</span>
               </div>
             </div>
           ))}
@@ -63,14 +63,14 @@ export default function MealPlan() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Lịch ăn</h1>
-          <p className="text-slate-500 mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Lịch ăn</h1>
+          <p className="text-sm sm:text-base text-slate-500 mt-1">
             Thực đơn tuần này · tổng {total} kcal · {totalGrams} g hôm nay
           </p>
         </div>
-        <button className="flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors">
+        <button className="flex items-center justify-center gap-2 bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors shrink-0">
           <Sparkles size={16} />
           Tạo meal plan tự động
         </button>
@@ -90,7 +90,7 @@ export default function MealPlan() {
         ))}
       </div>
 
-      <div className="bg-white rounded-xl border border-slate-200 p-4 space-y-3">
+      <div className="bg-white rounded-xl border border-slate-200 p-3 sm:p-4 space-y-3">
         {mealPlanToday.map((meal) => (
           <MealCard key={meal.time} meal={meal} />
         ))}

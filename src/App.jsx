@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
+import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
 import MealPlan from "./pages/MealPlan";
 import Workout from "./pages/Workout";
@@ -9,7 +10,8 @@ import Profile from "./pages/Profile";
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path="/" element={<Landing />} />
+      <Route path="/app" element={<Layout />}>
         <Route index element={<Dashboard />} />
         <Route path="meal-plan" element={<MealPlan />} />
         <Route path="workout" element={<Workout />} />

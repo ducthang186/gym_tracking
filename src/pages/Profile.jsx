@@ -19,12 +19,12 @@ export default function Profile() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Hồ sơ</h1>
-        <p className="text-slate-500 mt-1">Dữ liệu ban đầu và chỉ số cơ thể, cập nhật hàng tuần.</p>
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Hồ sơ</h1>
+        <p className="text-sm sm:text-base text-slate-500 mt-1">Dữ liệu ban đầu và chỉ số cơ thể, cập nhật hàng tuần.</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 bg-white rounded-xl border border-slate-200 p-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="lg:col-span-2 lg:order-1 order-2 bg-white rounded-xl border border-slate-200 p-4 sm:p-6">
           <h2 className="font-semibold text-slate-900 mb-4">Thông tin cá nhân</h2>
           <div className="grid grid-cols-2 gap-4">
             {[
@@ -47,7 +47,7 @@ export default function Profile() {
           </button>
         </div>
 
-        <div className="bg-white rounded-xl border border-slate-200 p-6 flex flex-col items-center justify-center text-center">
+        <div className="lg:order-2 order-1 bg-white rounded-xl border border-slate-200 p-6 flex flex-col items-center justify-center text-center">
           <p className="text-sm text-slate-500 mb-2">Chỉ số BMI</p>
           <p className="text-4xl font-bold text-slate-900">{currentBmi}</p>
           <span className={`mt-3 text-sm font-medium px-3 py-1 rounded-full ${category.color}`}>
