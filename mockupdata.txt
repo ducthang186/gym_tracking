@@ -1,0 +1,129 @@
+DỮ LIỆU MẪU (MOCK DATA) — LATIS COACHING
+=========================================
+Chỉ dùng cho môi trường phát triển. KHÔNG chạy ở production (script tự từ chối).
+Ngày tạo: 10/10/2026. Dữ liệu tính theo ngày chạy script (check-in, cân nặng, nhật ký... lùi từ hôm nay).
+
+CÁCH DÙNG
+---------
+Tạo / tạo lại dữ liệu mẫu (chạy nhiều lần được, mỗi lần xoá bộ cũ rồi tạo mới):
+    cd server
+    npm run seed:demo
+
+Xoá hết dữ liệu mẫu:
+    npm run seed:demo -- --clean
+
+Script: server/src/scripts/seed-demo.ts
+Mọi tài khoản mẫu có email @demo.example.com nên không lẫn với tài khoản thật; lệnh xoá chỉ xoá đúng nhóm này
+(kể cả ảnh trên đĩa).
+
+ĐĂNG NHẬP
+---------
+Địa chỉ dev:  http://localhost:5173/
+Mật khẩu chung của MỌI tài khoản mẫu:  Demo@12345
+Đăng nhập bằng email hoặc số điện thoại (đều được).
+Mật Khẩu: Demo@12345
+DANH SÁCH TÀI KHOẢN
+-------------------
+Email                          Số điện thoại   Vai trò         Tài khoản   Tình trạng HV
+-----------------------------  --------------  --------------  ----------  -------------
+demo-coach@demo.example.com    0900000100      Huấn luyện viên Hoạt động   —
+demo-an@demo.example.com       0900000101      Học viên        Hoạt động   Đang tập
+demo-binh@demo.example.com     0900000102      Học viên        Hoạt động   Đang tập
+demo-cuong@demo.example.com    0900000103      Học viên        Hoạt động   Đang tập
+demo-dung@demo.example.com     0900000104      Học viên        Hoạt động   Tạm dừng
+demo-em@demo.example.com       0900000105      Học viên        CHỜ DUYỆT   Đang tập
+demo-phong@demo.example.com    0900000106      Học viên        ĐÃ KHOÁ     Kết thúc
+
+Lưu ý: tài khoản "chờ duyệt" (demo-em) và "đã khoá" (demo-phong) KHÔNG đăng nhập được — đó là mục đích
+của chúng (để xem trạng thái ở /admin/users và thử nút Duyệt / Mở khoá). Muốn đăng nhập thử thì dùng admin
+của bạn để duyệt / mở khoá trước.
+
+Tài khoản admin KHÔNG nằm trong dữ liệu mẫu: dùng admin bạn tự tạo bằng `npm run admin:create`.
+Admin thấy mọi người ở /admin/users; demo-coach chỉ thấy học viên được gán cho mình (5 người, trừ demo-em).
+
+CHI TIẾT TỪNG HỌC VIÊN
+----------------------
+Cân nặng/kcal bên dưới là số THỰC TẾ đang có trong database lần tạo gần nhất. Mỗi lần chạy lại script, cân nặng
+có nhiễu ngẫu nhiên xác định (cùng seed → cùng kết quả), nhưng ngày thì dịch theo hôm nay.
+
+1) Nguyễn Văn An — demo-an — "giảm cân đều, kỷ luật tốt"
+   - Nam, sinh 12/03/1996, cao 175 cm, mức vận động: vừa. Mục tiêu 74 kg.
+   - Gói: 1:1 Personal Coaching · HLV: HLV Minh Tuấn · Mục tiêu calo do HLV đặt: 2.200 kcal
+   - Cân nặng: 81,7 → 76,2 kg (25 lần ghi trong ~9 tuần)
+   - Nhật ký ăn: 47 món (14 ngày gần nhất) · Lịch tập: 343 hiệp / 46 buổi (tỉ lệ đi tập ~90%)
+   - Check-in 9 tuần (C = có tập, K = không tập, cũ → mới):  C C C C C K C C C
+       · 3 tuần trước: "Không tập" — ghi chú "Đi công tác 1 tuần nên nghỉ tập." HLV phản hồi
+         "Không sao, tuần sau quay lại nhịp cũ nhé."
+       · 1 tuần trước: HLV phản hồi "Cân nặng giảm đều, giữ vững kế hoạch ăn."
+       · Tuần này: ghi chú "Tuần này khoẻ, tạ tăng đều."
+   - Ảnh: 8 ảnh (tuần -8: trước/bên/sau · tuần -4: trước/bên · tuần này: trước/bên/sau)
+
+2) Trần Thị Bình — demo-binh — "tăng cơ, chuyên cần tuyệt đối"
+   - Nữ, sinh 25/08/1999, cao 162 cm, mức vận động: nhẹ. Mục tiêu 56 kg.
+   - Gói: 1:1 Personal Coaching · HLV: HLV Minh Tuấn · Mục tiêu calo do HLV đặt: 2.000 kcal
+   - Cân nặng: 52,7 → 54,8 kg (23 lần ghi trong ~8 tuần)
+   - Nhật ký ăn: 54 món · Lịch tập: 295 hiệp / 43 buổi (tỉ lệ ~95%)
+   - Check-in 8 tuần:  C C C C C C C C   (đi tập đủ cả 8 tuần)
+       · Tuần này: ghi chú "Muốn tăng thêm khối lượng bài chân." HLV phản hồi
+         "Tuần sau mình thêm 1 buổi chân nhé."
+   - Ảnh: 3 ảnh góc trước (tuần -7, -3, tuần này)
+
+3) Lê Minh Cường — demo-cuong — "đang bỏ tập" (để thử cảnh báo / phản hồi của HLV)
+   - Nam, sinh 02/11/1990, cao 170 cm, mức vận động: ít. Mục tiêu 80 kg.
+   - Gói: Starter · HLV: HLV Minh Tuấn · CHƯA đặt mục tiêu calo (hệ thống tự gợi ý từ hồ sơ)
+   - Cân nặng: 92,0 → 91,0 kg (22 lần ghi — gần như đứng yên)
+   - Nhật ký ăn: 46 món · Lịch tập: 125 hiệp / 17 buổi (tỉ lệ đi tập chỉ ~35%)
+   - Check-in 8 tuần:  C C C C C K K K   (3 tuần gần nhất KHÔNG TẬP)
+       · 1 tuần trước: "Công việc dồn, ăn uống thất thường."
+       · Tuần này: "Bận dự án, đau lưng nên chưa tập được."
+       · HLV chưa phản hồi tuần nào → dùng để thử gõ phản hồi ở /admin/users/:id
+   - Ảnh: 2 ảnh (tuần -7: góc trước và góc bên) — chỉ có ảnh đầu kỳ, thiếu ảnh gần đây
+
+4) Phạm Hồng Dung — demo-dung — "tạm dừng"
+   - Nữ, sinh 18/05/1994, cao 158 cm, mức vận động: nhẹ. Mục tiêu 55 kg.
+   - Gói: Starter · HLV: HLV Minh Tuấn · Mục tiêu calo: 1.700 kcal
+   - Tình trạng học viên: TẠM DỪNG. Dữ liệu dừng lại từ 5 tuần trước.
+   - Cân nặng: 60,2 → 59,2 kg (16 lần ghi) · Nhật ký ăn: 53 món · Lịch tập: 176 hiệp / 23 buổi
+   - Check-in 7 tuần cũ:  C C C C C C C   (rồi không nộp thêm tuần nào)
+       · 5 tuần trước: "Em xin tạm dừng 1 tháng vì chuyển nhà." HLV: "Ok em, khi nào ổn định thì báo chị nhé."
+   - Ảnh: 2 ảnh góc trước (11 tuần trước và 6 tuần trước)
+
+5) Đỗ Quang Em — demo-em — "chờ duyệt"
+   - Nam, sinh 30/01/2001. Tài khoản ở trạng thái CHỜ DUYỆT, chưa gán HLV, KHÔNG có dữ liệu nào.
+   - Dùng để thử: Duyệt tài khoản ở /admin/users.
+   - (Hồ sơ thể chất của người này chưa được điền.)
+
+6) Vũ Thanh Phong — demo-phong — "đã khoá, kết thúc"
+   - Nam, sinh 09/09/1988, cao 172 cm. Mục tiêu 80 kg. Gói: Starter · HLV: HLV Minh Tuấn · Mục tiêu calo: 2.300 kcal
+   - Tài khoản ĐÃ KHOÁ, tình trạng học viên KẾT THÚC. Dữ liệu cũ từ ~8 tuần trước.
+   - Cân nặng: 88,2 → 87,3 kg (17 lần ghi) · Nhật ký ăn: 60 món · Lịch tập: 93 hiệp / 12 buổi
+   - Check-in 4 tuần:  C C K K   · Không có ảnh.
+   - Dùng để thử: Mở khoá tài khoản.
+
+HUẤN LUYỆN VIÊN
+---------------
+HLV Minh Tuấn — demo-coach@demo.example.com — vai trò coach, tài khoản hoạt động.
+Được gán làm HLV phụ trách của An, Bình, Cường, Dung, Phong (không gán cho Em).
+
+QUY ƯỚC GHI TRONG DỮ LIỆU
+-------------------------
+- Nhật ký ăn: 3–5 món/ngày, mỗi ngày chia vào các bữa sáng / trưa / tối / ăn nhẹ; món lấy ngẫu nhiên từ danh mục
+  18 món có sẵn; khối lượng 60–250 g. Calo/macro do server tự tính như khi dùng thật.
+- Lịch tập: theo ĐÚNG giáo án tuần của hệ thống (Thứ 2 ngực+tay sau, Thứ 3 lưng+tay trước, Thứ 4 cardio nhẹ,
+  Thứ 5 vai, Thứ 6 chân, Thứ 7 full body nhẹ, Chủ nhật nghỉ). Mỗi buổi được đi với xác suất = "tỉ lệ đi tập" của từng
+  người. Mức tạ khởi điểm khác nhau theo người và tăng dần ~1,25 kg/tuần. Bài cardio ghi một "hiệp" đánh dấu hoàn thành.
+- Cân nặng: xu hướng tuyến tính theo tuần + nhiễu nhỏ; ~45% số ngày có ghi; một số lần có kèm vòng eo.
+- Mục tiêu calo: HLV đặt cho An (2.200), Bình (2.000), Dung (1.700), Phong (2.300); Cường chưa có nên dùng gợi ý tự động.
+- Check-in: mỗi tuần một dòng, chỉ có "có tập / không tập" + ghi chú tuỳ chọn + phản hồi của HLV.
+- Ảnh: ảnh GIẢ vẽ bằng code (hình người đơn giản + nhãn "N tuần trước · Góc ..." + chữ "ẢNH MẪU"). Đi qua đúng luồng
+  xử lý ảnh thật (WebP + ảnh thu nhỏ, bỏ EXIF). Hình người "gầy/đậm" thay đổi theo tuần để thấy rõ khi so sánh
+  ảnh đầu ↔ hiện tại.
+
+NÊN THỬ GÌ
+----------
+- Đăng nhập demo-an: Tổng quan (biểu đồ cân nặng, macro, calo còn lại), Dinh dưỡng, Lịch tập, Tiến độ (ảnh + so sánh),
+  Check-in (đủ tuần có/không tập, phản hồi của HLV).
+- Đăng nhập demo-cuong: thấy tình trạng "bỏ tập" từ phía học viên.
+- Đăng nhập demo-coach: /admin → chỉ thấy học viên của mình; mở từng người xem check-in kèm ảnh, đặt mục tiêu, phản hồi.
+- Đăng nhập admin của bạn: /admin/users thấy đủ 4 trạng thái (hoạt động, tạm dừng, chờ duyệt, đã khoá); thử Duyệt /
+  Khoá / Mở khoá / cấp link đặt lại mật khẩu / gán HLV; /admin/users/:id xem chi tiết.

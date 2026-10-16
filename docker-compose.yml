@@ -1,0 +1,56 @@
+# Triển khai production trên MỘT máy chủ Linux (xem system.md mục 16). Chưa được chạy thử trên máy phát triển
+# (không có Docker daemon) — làm theo 16.7 "Kiểm tra trước khi mở đăng ký thật" ở lần triển khai đầu tiên.
+services:
+  db:
+    image: postgres:18
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: latis_owner
+      POSTGRES_PASSWORD: ${DB_OWNER_PASSWORD}
+      POSTGRES_DB: latis
+      APP_DB_PASSWORD: ${APP_DB_PASSWORD}
+    volumes:
+      # Image Postgres 18 đổi thư mục dữ liệu — gắn volume ở /var/lib/postgresql; đối chiếu tài liệu image.
+      - pgdata:/var/lib/postgresql
+      - ./server/db/init:/docker-entrypoint-initdb.d:ro # tạo role latis_app (chỉ chạy lần đầu)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U latis_owner -d latis"]
+      interval: 5s
+      retries: 10
+    # KHÔNG có "ports:" — Postgres chỉ truy cập được trong mạng nội bộ Docker (Docker bỏ qua ufw!).
+
+  migrate:
+    image: ghcr.io/amacneil/dbmate
+    command: --no-dump-schema up
+    environment:
+      DATABASE_URL: postgres://latis_owner:${DB_OWNER_PASSWORD}@db:5432/latis?sslmode=disable
+    volumes:
+      - ./server/db/migrations:/db/migrations:ro
+    depends_on:
+      db: { condition: service_healthy }
+    restart: "no"
+
+  api:
+    build: ./server
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - /var/lib/latis/storage:/var/lib/latis/storage # ảnh tiến độ
+      - /var/backups/latis:/var/backups/latis:ro # để trang admin đọc tuổi bản backup
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+    expose: ["3000"] # chỉ lộ trong mạng nội bộ cho Caddy
+
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./web:/srv/web:ro # thư mục dist/ của frontend
+      - caddy_data:/data
+    depends_on: [api]
+
+volumes:
+  pgdata:
+  caddy_data:

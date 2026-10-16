@@ -1,0 +1,24 @@
+# Đổi latis.vn thành tên miền thật. Caddy tự xin và gia hạn chứng chỉ HTTPS (Let's Encrypt).
+latis.vn {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "same-origin"
+		X-Frame-Options "DENY"
+		# Chế độ báo cáo: chỉ ghi cảnh báo vào Console của trình duyệt, chưa chặn gì. Mở site, xem Console không
+		# còn vi phạm thì đổi tên header thành Content-Security-Policy để bật thật.
+		Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+	}
+
+	handle /api/* {
+		reverse_proxy api:3000
+	}
+
+	handle {
+		root * /srv/web
+		try_files {path} /index.html
+		file_server
+	}
+}

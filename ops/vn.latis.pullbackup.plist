@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Cài: cp ops/vn.latis.pullbackup.plist ~/Library/LaunchAgents/ && launchctl load ~/Library/LaunchAgents/vn.latis.pullbackup.plist
+     (sửa đường dẫn script bên dưới cho đúng máy bạn) -->
+<plist version="1.0">
+  <dict>
+    <key>Label</key><string>vn.latis.pullbackup</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>/bin/bash</string>
+      <string>/Users/CHANGE_ME/bin/latis-pull-backup.sh</string>
+    </array>
+    <key>StartInterval</key><integer>3600</integer>
+    <key>RunAtLoad</key><true/>
+    <key>StandardErrorPath</key><string>/tmp/latis-pull-backup.err</string>
+  </dict>
+</plist>
