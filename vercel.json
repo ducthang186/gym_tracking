@@ -1,3 +1,4 @@
 {
+  "buildCommand": "VITE_DEMO=true vite build",
   "rewrites": [{ "source": "/((?!api/).*)", "destination": "/index.html" }]
 }

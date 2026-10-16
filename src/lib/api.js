@@ -3,6 +3,8 @@
 //  - refresh token nằm trong cookie httpOnly: JavaScript không đọc được, trình duyệt tự gửi kèm
 //  - khi gặp 401, tự refresh MỘT lần rồi gửi lại request
 
+import { DEMO } from "./demo";
+
 const API = "/api/v1";
 
 let accessToken = null;
@@ -28,6 +30,12 @@ export const setSessionLostHandler = (fn) => {
 };
 
 async function request(path, { method = "GET", body, token, responseType } = {}) {
+  // Chế độ demo: trả lời bằng máy chủ giả trong trình duyệt (nhánh này bị loại khỏi bản build thường).
+  if (DEMO) {
+    const { demoRequest } = await import("../demo/demoApi.js");
+    return demoRequest(path, { method, body, responseType });
+  }
+
   const headers = {};
   // Chỉ đặt Content-Type khi thật sự có body (server từ chối body rỗng kèm content-type JSON).
   // FormData (upload ảnh): để trình duyệt tự đặt multipart + boundary.

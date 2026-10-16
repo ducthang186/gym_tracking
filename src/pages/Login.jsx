@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { AuthShell, Field, FormError, PasswordInput, SubmitButton, inputClass } from "../components/AuthForm";
 import { useAuth } from "../context/AuthContext";
 import { describeError } from "../lib/authMessages";
+import { DEMO, DEMO_ACCOUNTS, DEMO_PASSWORD } from "../lib/demo";
 
 export default function Login() {
   const { login } = useAuth();
@@ -55,6 +56,36 @@ export default function Login() {
         </>
       }
     >
+      {DEMO && (
+        <div className="mt-6 rounded-xl border border-cyan/30 bg-cyan/5 p-4">
+          <p className="text-xs font-semibold text-cyan mb-3">BẢN DEMO — bấm để vào ngay, không cần mật khẩu</p>
+          <div className="space-y-2">
+            {DEMO_ACCOUNTS.map((a) => (
+              <button
+                key={a.email}
+                type="button"
+                disabled={loading}
+                onClick={async () => {
+                  setLoading(true);
+                  setError("");
+                  try {
+                    await login(a.email, DEMO_PASSWORD);
+                    navigate(a.to, { replace: true });
+                  } catch (err) {
+                    setError(describeError(err).message);
+                    setLoading(false);
+                  }
+                }}
+                className="w-full text-left rounded-lg border border-line bg-panel hover:border-cyan/50 disabled:opacity-60 px-3.5 py-2.5 transition-colors"
+              >
+                <span className="block text-sm font-semibold text-ink">{a.label}</span>
+                <span className="block text-xs text-muted">{a.hint}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <form onSubmit={handleSubmit} noValidate className="mt-6 space-y-4">
         <FormError message={error} />
 

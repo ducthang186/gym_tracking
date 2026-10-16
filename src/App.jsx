@@ -3,6 +3,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { DailyLogProvider } from "./context/DailyLogContext";
 import { AppDataProvider } from "./context/AppDataContext";
 import { BodyProvider } from "./context/BodyContext";
+import DemoBanner from "./components/DemoBanner";
 import { GuestOnly, RequireAuth, RequireRole } from "./components/RouteGuards";
 import Layout from "./components/Layout";
 import AdminLayout from "./components/AdminLayout";
@@ -29,6 +30,7 @@ export default function App() {
       <AppDataProvider>
         <BodyProvider>
         <DailyLogProvider>
+          <DemoBanner />
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/login" element={<GuestOnly><Login /></GuestOnly>} />

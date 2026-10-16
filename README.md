@@ -52,6 +52,13 @@ npm run typecheck
 npm run db:stop     # dừng Postgres dev       |   npm run db:reset  # XOÁ dữ liệu dev, dựng lại
 ```
 
+## Bản demo không cần máy chủ (dùng cho Vercel)
+
+`npm run build:demo` (hoặc `npm run dev:demo`) build giao diện với **máy chủ giả chạy trong trình duyệt** (`src/demo/demoApi.js`):
+dữ liệu mẫu ngắn gọn, ba nút vào nhanh ở trang đăng nhập (học viên / huấn luyện viên / quản trị viên), mọi thao tác lưu trong
+`localStorage` của người xem và có nút "Đặt lại dữ liệu demo". `vercel.json` đã bật chế độ này cho bản đưa lên Vercel.
+Bản chạy thật (`npm run build`) không chứa mã demo.
+
 ## Cấu trúc
 
 ```

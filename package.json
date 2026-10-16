@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev:demo": "VITE_DEMO=true vite",
+    "build:demo": "VITE_DEMO=true vite build"
   },
   "dependencies": {
     "lucide-react": "^1.47.0",
